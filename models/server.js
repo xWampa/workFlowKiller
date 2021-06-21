@@ -13,7 +13,9 @@ class Server {
         this.port = process.env.PORT || '8888';
         this.loginPath = '/login';
         this.todoPath = '/todo';
-        this.usersPath = '/user';
+        this.userPath = '/user';
+        this.usersPath = '/users';
+
 
         //Middlewares
         this.middlewares();
@@ -52,8 +54,8 @@ class Server {
 
         this.app.use(this.loginPath, require('../routes/login.routes'));
         this.app.use(this.todoPath, require('../routes/todo.routes'));
+        this.app.use(this.userPath, require('../routes/user.routes'));
         this.app.use(this.usersPath, require('../routes/users.routes'));
-
     }
 
     listen() {
