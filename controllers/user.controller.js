@@ -22,17 +22,17 @@ const userGet = async(req = request, res = response) => {
 const userPost = async(req = request, res = response) => {
     // guardar el usuario en la base de datos y devolver el ID
     db.run(
-        'INSERT INTO users VALUES (?, ?, ?, ?)', [
-            req.params.login,
-            req.params.name,
-            req.params.email,
-            req.params.passwd
+        'INSERT INTO users ("login", "name", "email", "passwd") VALUES (?, ?, ?, ?)', [
+            req.body.login,
+            req.body.name,
+            req.body.email,
+            req.body.passwd
         ],
         function(err) {
             if (err) {
                 res.status(500).send(err);
             } else {
-                res.end();
+                res.send(`El usuario ${req.body.name} ha sido añadido con éxito`);
             }
         }
     );
@@ -53,7 +53,7 @@ const userDelete = async(req = request, res = response) => {
     // Borrar el usuario en la base de datos
     db.run('DELETE FROM users WHERE id=?', req.params.id);
 
-    res.end();
+    res.send("usuario borrado");
 };
 
 // Listar todos los usuarios
@@ -62,10 +62,10 @@ var usersGet = async(req = request, res = response) => {
         'SELECT id, login, name, email FROM users',
         function(err, rows) {
             if (err) {
-                console.log("error raro");
+                //console.log("error raro");
                 res.status(500).send("error: " + err);
             } else {
-                console.log("todo ok");
+                //console.log("todo ok");
                 res.json(rows);
             }
         }
