@@ -10,6 +10,18 @@ angular.module('wfp', ['ngRoute'])
             .when('/todo', {
                 controller: 'todo',
                 templateUrl: 'todo.html'
+            })
+            .when('/procs', {
+                controller: 'procs',
+                templateUrl: 'procs.html'
+            })
+            .when('/runs', {
+                controller: 'runs',
+                templateUrl: 'runs.html'
+            })
+            .when('/tasks', {
+                controller: 'tasks',
+                templateUrl: 'tasks.html'
             });
     })
     .factory('UserData', function() {
