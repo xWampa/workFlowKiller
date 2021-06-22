@@ -56,6 +56,7 @@ class Server {
         this.app.use(this.todoPath, require('../routes/todo.routes'));
         this.app.use(this.userPath, require('../routes/user.routes'));
         this.app.use(this.usersPath, require('../routes/users.routes'));
+        this.app.use(this.usersPath, require('../routes/procs.routes'));
     }
 
     listen() {
