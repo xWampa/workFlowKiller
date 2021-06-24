@@ -3,9 +3,10 @@ const { check } = require('express-validator');
 
 const router = Router();
 
-const { procsGet } = require('../controllers/procs.controller');
+const { tasksGet } = require('../controllers/tasks.controller');
 const { validarCampos } = require('../middlewares/validar-campos');
 
-router.get('/', procsGet);
+router.get('/', tasksGet);
+
 
 module.exports = router;

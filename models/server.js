@@ -15,6 +15,9 @@ class Server {
         this.todoPath = '/todo';
         this.userPath = '/user';
         this.usersPath = '/users';
+        this.procsPath = '/procs';
+        this.runsPath = '/runs';
+        this.tasksPath = '/tasks';
 
 
         //Middlewares
@@ -22,7 +25,6 @@ class Server {
 
         //Rutas de mi aplicación
         this.routes();
-
     }
 
     middlewares() {
@@ -56,7 +58,9 @@ class Server {
         this.app.use(this.todoPath, require('../routes/todo.routes'));
         this.app.use(this.userPath, require('../routes/user.routes'));
         this.app.use(this.usersPath, require('../routes/users.routes'));
-        this.app.use(this.usersPath, require('../routes/procs.routes'));
+        this.app.use(this.procsPath, require('../routes/procs.routes'));
+        this.app.use(this.runsPath, require('../routes/runs.routes'));
+        this.app.use(this.tasksPath, require('../routes/tasks.routes'));
     }
 
     listen() {

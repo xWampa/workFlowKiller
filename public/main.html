@@ -1,36 +1,64 @@
 <!-- When logged -> show main menu -->
 <div ng-show='IsLogged'>
-  <p><label>Usuario:</label><span>{{ user.name }}</span></p>
-  
-  <h2>Menu principal</h2>
-  
-  <a href="#!todo">Tareas pendientes</a>
-  <a href="#!users">Gestion de usuarios</a>
-  <a href="#!tasks">Gestion de tareas</a>
-  <a href="#!procs">Gestion de procesos</a>
-  <a href="#!runs">Lanzar un proceso</a>
-  
+    <!--NAVBAR-->
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="!/#">WFK</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active navitem-l" aria-current="page" href="#!todo"><strong>Tareas pendientes</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active navitem-l" aria-current="page" href="#!users"><strong>Gestion de usuarios</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active navitem-l" aria-current="page" href="#!tasks"><strong>Gestion de tareas</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active navitem-l" aria-current="page" href="#!procs"><strong>Gestion de procesos</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active navitem-l" aria-current="page" href="#!runs"><strong>Lanzar un proceso</strong></a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--FIN NAVBAR-->
+
+    <h5 class="container mt-3 d-flex justify-content-center">Primero que nada, buenos días {{ user.name }}, ponte a trabajar.</h5>
 </div>
+  
+  <!-- When not logged -> show the login form -->  
+  <div ng-show='!IsLogged' class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
 
-<!-- When not logged -> show the login form -->  
-<div ng-show='!IsLogged'>
-  <h2>Login Page</h2>
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img id="espacio" src="img/wfk.png" id="icon" alt="User Icon" />
+        </div>
 
-  <form ng-submit="formSubmit()">
-    <div>
-      <span>Usuario:</span>
-      <input type="text" ng-model="username" required=""/>
+        <!-- Login Form -->
+        <form ng-submit="formSubmit()">
+            <input type="text" class="fadeIn second" ng-model="username" placeholder="username" />
+            <input type="password" class="fadeIn third" ng-model="password" placeholder="password" />
+            <button type="submit" class="fadeIn fourth">Iniciar sesión</button>
+        </form>
+        <!-- Cerrar sesion
+        <form action="includes/logout.inc.php" method="post">
+            <button type="submit" name="logout-submit">Cerrar sesión</button>
+        </form>-->
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <span>{{errormsg}}</span>
+        </div>
+
     </div>
-
-    <div>
-      <span>Contraseña</span>
-      <input type="password" ng-model="password" required=""/>
-    </div>
-
-    <div>
-      <button type="submit">Login</button>
-      <span>{{ errormsg }}</span>
-    </div>
-
-  </form>
 </div>

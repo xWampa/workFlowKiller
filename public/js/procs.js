@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('wfp')
-    .controller('workflows', function($scope, $http) {
+    .controller('procs', function($scope, $http) {
         
-        $scope.tasks = [];
+        $scope.processes = [];
 
-        // Al entrar pedir las tareas de este usuario
-        $http.get('/workflows').then(function(response) {
+        // Al entrar pedir los procesos de este usuario
+        $http.get('/procs').then(function(response) {
             // Y meterlas en el $scope
-            $scope.tasks = response.data;
+            $scope.processes = response.data;
         });
         
         
