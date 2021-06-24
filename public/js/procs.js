@@ -5,7 +5,7 @@ angular.module('wfp')
         
         $scope.processes = [];
 
-        // Al entrar pedir las tareas de este usuario
+        // Al entrar pedir los procesos de este usuario
         $http.get('/procs').then(function(response) {
             // Y meterlas en el $scope
             $scope.processes = response.data;
