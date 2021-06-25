@@ -1,4 +1,3 @@
-  
 'use strict';
 
 angular.module('wfp')
@@ -12,12 +11,12 @@ angular.module('wfp')
             $scope.processes = response.data;
         });
 
-        $scope.workflow = '';
-        $scope.formSubmit = function(){
-            var data = {"workflow": $scope.workflow};
-
-            $http.post("/runs", data)
+        $scope.setWorkflow = function (id) {
+            $scope.workflow = id;
+            console.log($scope.workflow);
+            //console.log(e.target);
+            var data = {workflow: id};
+            $http.post("/runs", data);
         };
-        
         
     });
