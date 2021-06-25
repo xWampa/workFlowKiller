@@ -29,7 +29,6 @@
     </nav>
     <!--FIN NAVBAR-->
 
-
         <div class="container">
             <h1 class="mb-3 mt-3">Procesos pendientes</h1>
             <table class="table table-striped">
@@ -45,39 +44,28 @@
                         <th scope="row">{{ p.id }}</th>
                         <td>{{ p.name }}</td>
 
-                        
                         <td>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=#modal{{p.id}}>
                                 Asignar
                             </button>
-                
                             <div class="modal fade" id=modal{{p.id}} tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-                                
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel2">Asignar proceso {{ p.id }} </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>¿Seguro que quiere asignarse el proceso?</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary mb-3" data-bs-dismiss="modal">Cerrar</button>
-                                                <button ng-click="setWorkflow(p.id)" id={{p.id}} type="submit"  class="btn mt-3">Asignar</button>
-                                            </div>
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel2">Asignar proceso {{ p.id }} </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>¿Seguro que quiere asignarse el proceso?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary mb-3" data-bs-dismiss="modal">Cerrar</button>
+                                            <button ng-click="setWorkflow(p.id)" id={{p.id}} type="submit" class="btn mt-3" data-bs-dismiss="modal">Asignar</button>
                                         </div>
                                     </div>
-                                    
+                                </div>
                             </div>
                         </td>
-
-                    
-                        <!--
-                        <td>
-                            <button ng-click="setWorkflow(p.id)" class="btn mt-3">Asignar</button>
-                        </td>
-                        -->
                         
                     </tr>
                 </tbody>

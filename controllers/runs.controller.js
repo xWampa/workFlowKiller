@@ -1,7 +1,6 @@
 const { response, request } = require('express');
 const { db } = require('../database/config');
 
-
 // Devuelve todos los nuevos procesos disponibles para iniciar por el usuario
 const runsGet = async(req = request, res = response) => {
 
@@ -25,14 +24,14 @@ const runPost = async(req = request, res = response) => {
 
     ], function(err, rows) {
         if (err) {
-            res.status(500).send("1")
+            res.status(500).send(err)
         } else {
 
             var sql = 'SELECT wft.*  FROM wftasks AS wft WHERE (wft.workflow = ?) ORDER BY "order"';
 
             db.all(sql, req.body.workflow, async function(err, rows) {
                 if (err) {
-                    res.status(500).send("2");
+                    res.status(500).send(err);
                 } else {
 
                     // Aquí, una vez tenemos todos los wftasks de un proceso nuevo en run, las metemos todas en usertasks, poniendo la/s primera/s como pendiente y el resto en programada
@@ -43,7 +42,7 @@ const runPost = async(req = request, res = response) => {
 
                     db.all(sql, req.body.workflow, async function(err, rows) {
                         if (err) {
-                            res.status(500).send("3")
+                            res.status(500).send(err)
                         } else {
 
                             var runid = rows[0].id;
@@ -85,7 +84,7 @@ const runPost = async(req = request, res = response) => {
                                 
                                 if (err) {
                                     
-                                    res.status(500).send("4HOLA");
+                                    res.status(500).send(err);
 
                                 } else {
                                     res.send(`todas las usertask del proceso con id ${req.body.workflow} en marcha con id ${runid} han sido añadidas a tabla usertasks`)
