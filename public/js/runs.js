@@ -1,3 +1,4 @@
+  
 'use strict';
 
 angular.module('wfp')
@@ -10,6 +11,13 @@ angular.module('wfp')
             // Y meterlas en el $scope
             $scope.processes = response.data;
         });
+
+        $scope.workflow = '';
+        $scope.formSubmit = function(){
+            var data = {"workflow": $scope.workflow};
+
+            $http.post("/runs", data)
+        };
         
         
     });
