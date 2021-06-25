@@ -12,6 +12,7 @@ const runsGet = async(req = request, res = response) => {
     });
 }
 
+// Añade entrada nueva en la tabla run y todas sus tareas correspondientes a la tabla usertasks, poniendo la/s primera/s en estado pendiente y las demas en programadas. Coge id de workflow del body
 const runPost = async(req = request, res = response) => {
 
     const sql = 'INSERT into runs (workflow, user, state, usertask) VALUES (?, ?, 2, ?)';
@@ -19,7 +20,7 @@ const runPost = async(req = request, res = response) => {
     db.run(sql, [
 
         req.body.workflow,
-        req.body.userID, // CAMBIAR A SESSION!!!!
+        req.session.userID, // CAMBIAR A SESSION!!!!
         req.body.usertask
 
     ], function(err, rows) {
@@ -74,7 +75,7 @@ const runPost = async(req = request, res = response) => {
                                 if (task == tasks[0])
                                     sq2 = `INSERT INTO usertasks (run, user, wftask, state) VALUES (${runid}, ${req.body.userID}, ${task.id}, ${estado})`;
                                 else
-                                    sq2 += `,(${runid}, ${req.body.userID}, ${task.id}, ${estado})`; // CAMBIAR BODY A SESSION !!!
+                                    sq2 += `,(${runid}, ${req.session.userID}, ${task.id}, ${estado})`; // CAMBIAR BODY A SESSION !!!
 
                             });
 
