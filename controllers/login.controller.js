@@ -1,6 +1,8 @@
 const { response, request } = require('express');
 const { db } = require('../database/config');
 
+
+// Hace login del usuario cogiendo como parametros del body el user y el passwd
 const loginPost = async(req = request, res = response) => {
 
     const { user, passwd } = req.body;
