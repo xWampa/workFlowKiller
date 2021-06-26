@@ -10,7 +10,6 @@ const procsGet = async(req = request, res = response) => {
     });
 }
 
-
 module.exports = {
     procsGet
 }
