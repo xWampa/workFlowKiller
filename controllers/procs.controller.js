@@ -17,7 +17,7 @@ const procsGet = async(req = request, res = response) => {
     });
 }
 
-const procsDelete = async(req = request, res = response) => {
+const procsPost = async(req = request, res = response) => {
 
     console.log(req.body.workflow)
 
@@ -42,5 +42,5 @@ const procsDelete = async(req = request, res = response) => {
 
 module.exports = {
     procsGet,
-    procsDelete
+    procsPost
 }

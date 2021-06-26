@@ -3,14 +3,14 @@ const { check } = require('express-validator');
 
 const router = Router();
 
-const { procsGet, procsDelete } = require('../controllers/procs.controller');
+const { procsGet, procsPost } = require('../controllers/procs.controller');
 const { validarCampos } = require('../middlewares/validar-campos');
 
 router.get('/', procsGet);
-router.delete('/', [
+router.post('/', [
     check('workflow', 'Es necesario el workflow').not().isEmpty(),
     validarCampos
-], procsDelete)
+], procsPost);
 
 
 module.exports = router;
