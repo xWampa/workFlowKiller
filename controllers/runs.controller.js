@@ -20,7 +20,7 @@ const runPost = async(req = request, res = response) => {
     db.run(sql, [
 
         req.body.workflow,
-        req.session.userID, // CAMBIAR A SESSION!!!!
+        req.body.userID, // CAMBIAR A SESSION!!!!
         req.body.usertask
 
     ], function(err, rows) {
@@ -75,7 +75,7 @@ const runPost = async(req = request, res = response) => {
                                 if (task == tasks[0])
                                     sq2 = `INSERT INTO usertasks (run, user, wftask, state) VALUES (${runid}, ${req.body.userID}, ${task.id}, ${estado})`;
                                 else
-                                    sq2 += `,(${runid}, ${req.session.userID}, ${task.id}, ${estado})`; // CAMBIAR BODY A SESSION !!!
+                                    sq2 += `,(${runid}, ${req.body.userID}, ${task.id}, ${estado})`; // CAMBIAR BODY A SESSION !!!
 
                             });
 
