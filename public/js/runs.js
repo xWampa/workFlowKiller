@@ -1,7 +1,14 @@
 'use strict';
 
 angular.module('wfp')
-    .controller('runs', function($scope, $http) {
+    .controller('runs', function($scope, $http,UserData) {
+        
+        $scope.formSubmit = function() {
+            console.log(scope.processes);
+            
+
+        
+        };
         
         $scope.processes = [];
 
