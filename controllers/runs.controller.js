@@ -4,7 +4,7 @@ const { db } = require('../database/config');
 // Devuelve todos los nuevos procesos disponibles para iniciar por el usuario
 const runsGet = async(req = request, res = response) => {
 
-    const sql = 'SELECT DISTINCT id, name FROM workflows WHERE id NOT IN (SELECT workflow FROM runs)';
+    const sql = 'SELECT wf.id, wf.name FROM workflows AS wf WHERE NOT EXISTS (SELECT r.workflow FROM runs AS r WHERE r.workflow = wf.id ) AND NOT EXISTS (SELECT t.workflow FROM tasks AS t WHERE t.workflow = wf.id)';
     //const userID = req.session.userID;
     db.all(sql, function(err, rows) {
         res.json(rows);
