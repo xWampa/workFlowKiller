@@ -12,9 +12,6 @@ angular.module('wfp')
         });
 
         $scope.setWorkflow = function (id) {
-            $scope.workflow = id;
-            console.log($scope.workflow);
-            //console.log(e.target);
             var data = {workflow: id};
             $http.post("/procs", data);
         };
