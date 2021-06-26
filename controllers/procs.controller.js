@@ -40,8 +40,6 @@ const procsDelete = async(req = request, res = response) => {
     });
 }
 
-
-
 module.exports = {
     procsGet,
     procsDelete
