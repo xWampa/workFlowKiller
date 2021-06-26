@@ -124,9 +124,5 @@ const runPost = async(req = request, res = response) => {
 
 module.exports = {
     runsGet,
-<<<<<<< HEAD
-    runsPost
-=======
     runPost
->>>>>>> main
 }
