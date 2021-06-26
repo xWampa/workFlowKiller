@@ -12,13 +12,12 @@ angular.module('wfp')
             
         });
 
-        
-        $scope.formSubmit = function() {
-            console.log($scope.processes);
-            //$scope.processes.row.id
-            //var data = { userID: , state: "2" };
-            //console.log(data)
-            //$http.post("/runs", data)
+        $scope.setWorkflow = function (id) {
+            $scope.workflow = id;
+            console.log($scope.workflow);
+            //console.log(e.target);
+            var data = {workflow: id};
+            $http.post("/runs", data);
         };
-
+        
     });
