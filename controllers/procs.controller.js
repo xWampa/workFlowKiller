@@ -17,17 +17,17 @@ const procsGet = async(req = request, res = response) => {
     });
 }
 
-const procsPost = async(req = request, res = response) => {
+const procsPut = async(req = request, res = response) => {
 
     console.log(req.body.workflow)
 
-    var sql = "DELETE FROM usertasks WHERE run = (SELECT id FROM runs WHERE workflow = ?)";
+    var sql = "UPDATE usertasks SET state = '4' WHERE state != '3' AND run = (SELECT id FROM runs WHERE workflow = ?)";
     db.run(sql, req.body.workflow, function(err){
         if(err){
             res.status(500).send(err);
         }else{
             //res.send('Proceso borrado de usertasks');
-            sql = "DELETE FROM runs WHERE workflow = ?";
+            sql = "UPDATE runs SET state = '3' WHERE workflow = ?";
             db.run(sql, req.body.workflow, function(err){
                 if(err){
                     res.status(500).send(err);
@@ -42,5 +42,5 @@ const procsPost = async(req = request, res = response) => {
 
 module.exports = {
     procsGet,
-    procsPost
+    procsPut
 }
