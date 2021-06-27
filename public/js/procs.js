@@ -13,7 +13,7 @@ angular.module('wfp')
 
         $scope.setWorkflow = function (id) {
             var data = {workflow: id};
-            $http.post("/procs", data);
+            $http.put("/procs", data);
         };
 
 
