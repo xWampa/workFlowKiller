@@ -22,7 +22,7 @@ const procsGet = async(req = request, res = response) => {
     });
 }
 
-const procsPut = async(req = request, res = response) => {
+const procsPost = async(req = request, res = response) => {
 
     const workflow = req.body.workflow;
 
@@ -33,6 +33,7 @@ const procsPut = async(req = request, res = response) => {
 function cancelProceso(req, res, workflowID = '') {
 
     const workflow = workflowID || req.body.workflow;
+
 
     sql = `SELECT r.id AS run_id, t.workflow AS subproceso, ut.id AS usertask_id FROM runs AS r, usertasks AS ut, wftasks AS wt, tasks AS t WHERE r.workflow = ${workflow} AND r.id = ut.run AND wt.id = ut.wftask AND t.id = wt.task AND ut.state IN (1,2)`;
     console.log("la conulta es: ", sql)
@@ -108,5 +109,5 @@ function cancelProceso(req, res, workflowID = '') {
 
 module.exports = {
     procsGet,
-    procsPut
+    procsPost
 }
