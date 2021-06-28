@@ -27,16 +27,15 @@ const procsPost = async(req = request, res = response) => {
     const workflow = req.body.workflow;
 
     cancelProceso(req, res);
-
 }
 
 function cancelProceso(req, res, workflowID = '') {
 
     const workflow = workflowID || req.body.workflow;
 
-
+    //Seleccionamos todas las tareas de un proceso
     sql = `SELECT r.id AS run_id, t.workflow AS subproceso, ut.id AS usertask_id FROM runs AS r, usertasks AS ut, wftasks AS wt, tasks AS t WHERE r.workflow = ${workflow} AND r.id = ut.run AND wt.id = ut.wftask AND t.id = wt.task AND ut.state IN (1,2)`;
-    console.log("la conulta es: ", sql)
+    // console.log("la conulta es: ", sql)
     db.all(sql, function(err, rows) {
         if (err) {
             res.status(500).send(`error al recuperar usertasks de ese proceso: ${err}`);
@@ -59,16 +58,17 @@ function cancelProceso(req, res, workflowID = '') {
             })
 
             var subprocesses = [];
-            console.log("los rows son: ", rows);
+            // console.log("los rows son: ", rows);
             rows.forEach(task => {
                 if (task.subproceso != '' & task.subproceso != undefined) subprocesses.push(task);
             });
-
+            
+            //Si tenemos subprocesos, eliminarlos tambien
             if (subprocesses == [] || subprocesses == '' || subprocesses == undefined) {
                 res.send("todos los procesos, subprocesos y usertasks cancelados")
-                console.log("no hay más subprocesos");
+                // console.log("no hay más subprocesos");
             } else {
-                console.log("hay subproceso");
+                // console.log("hay subproceso");
                 subprocesses.forEach(element => {
                     cancelProceso(req, res, element.subproceso);
                 });
@@ -77,33 +77,6 @@ function cancelProceso(req, res, workflowID = '') {
         };
 
     });
-
-
-    // if (rows == undefined || rows == "") {
-    //     res.send("todos los procesos, subprocesos y usertasks cancelados, no hay mas rows")
-    // } else {
-
-    // var subprocesses = [];
-    // console.log("los rows son: ", JSON.stringify(rows));
-    // rows.forEach(task => {
-    //     console.log('tarea de rows: ', task);
-    //     if (task.subproceso != '' || task.subproceso != undefined) subprocesses.push(task);
-    // });
-
-    // console.log("aqui: ", subprocesses);
-
-    // if (subprocesses == [] || subprocesses == '' || subprocesses == undefined) {
-    //     res.send("todos los procesos, subprocesos y usertasks cancelados")
-    //     console.log("no hay más subprocesos");
-    // } else {
-    //     console.log("hay subproceso");
-    //     subprocesses.forEach(element => {
-    //         cancelProceso(req, res, element.subproceso);
-    //     });
-    // }
-
-
-    // }
 
 }
 
