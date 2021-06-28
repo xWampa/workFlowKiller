@@ -1,77 +1,75 @@
-    <!--NAVBAR-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#/!">WFK</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<!--NAVBAR-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#/!">WFK</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active navitem-l" aria-current="page" href="#!todo"><strong>Tareas pendientes</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active navitem-l" aria-current="page" href="#!users"><strong>Gestion de usuarios</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active navitem-l" aria-current="page" href="#!tasks"><strong>Gestion de tareas</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active navitem-l" aria-current="page" href="#!procs"><strong>Gestion de procesos</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active navitem-l" aria-current="page" href="#!runs"><strong>Lanzar un proceso</strong></a>
-                    </li>
-                    
-                </ul>
-            </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active navitem-l" aria-current="page" href="#!todo"><strong>Tareas pendientes</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active navitem-l" aria-current="page" href="#!users"><strong>Gestion de usuarios</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active navitem-l" aria-current="page" href="#!tasks"><strong>Gestion de tareas</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active navitem-l" aria-current="page" href="#!procs"><strong>Gestion de procesos</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active navitem-l" aria-current="page" href="#!runs"><strong>Lanzar un proceso</strong></a>
+                </li>
+
+            </ul>
         </div>
-    </nav>
-    <!--FIN NAVBAR-->
-        <div class="container">
-            <h1 class="mb-3 mt-3">Tareas pendientes</h1>
-            <table class="table table-striped">
-                <thead>
-                    <tr class="table-dark">
-                        <th scope="col">ID</th>
-                        <th scope="col">Tarea</th>
-                        <th scope="col">Datos</th>
-                        <th scope="col">Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="t in tasks">
-                        <th scope="row">{{ t.id }}</th>
-                        <td>{{ t.name }}</td>
-                        <td>{{ t.data }}</td>
-                        <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                Finalizar
+    </div>
+</nav>
+<!--FIN NAVBAR-->
+<div class="container">
+    <h1 class="mb-3 mt-3">Tareas pendientes</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col">ID</th>
+                <th scope="col">Tarea</th>
+                <th scope="col">Datos</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="t in tasks">
+                <th scope="row">{{ t.id }}</th>
+                <td>{{ t.name }}</td>
+                <td>{{ t.data }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=#modal{{t.id}}>
+                                Terminar tarea {{t.id}}
                             </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <form ng-submit="formSubmit()">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Finalizar tarea {{ t.id }} </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>¿Cuantas horas ha requerido la tarea?</p>
-                                                <input type="number" ng-model="horas" required="" />
-                                                <p class="mt-3">Nota:</p>
-                                                <input type="text" ng-model="nota" required="" />
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary mb-3" data-bs-dismiss="modal">Cerrar</button>
-                                                <button type="submit" class="btn mt-3">Finalizar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                    <div class="modal fade" id=modal{{t.id}} tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel2">Terminar tarea {{ t.id }} </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Cuantas horas ha requerido la tarea</p>
+                                    <input type="number" ng-model="horas" required="" />
+                                    <p class="mt-3">Nota:</p>
+                                    <input type="text" ng-model="nota" required="" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary mb-3" data-bs-dismiss="modal">Cerrar</button>
+                                    <button ng-click="terminarTarea(t.id, nota, horas)" id={{t.id}} type="submit" class="btn mt-3" data-bs-dismiss="modal">terminar</button>
+                                </div>
                             </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
