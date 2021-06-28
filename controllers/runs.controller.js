@@ -31,36 +31,141 @@ const runsPost = async(req = request, res = response) => {
 
 // Añade entrada nueva en la tabla run y todas sus tareas correspondientes a la tabla usertasks, poniendo la/s primera/s en estado pendiente y las demas en programadas. Coge id de workflow del body
 const runPost = async(req = request, res = response) => {
-    console.log(req.session.userID);
-    const sql = 'INSERT into runs (workflow, user, state, usertask) VALUES (?, ?, 2, ?)';
+    //console.log(req.session.userID);
+
+    newRun(req, res);
+
+
+    // workflow = req.body.workflow;
+    // userID = req.session.userID; // CAMBIAR A SESSION!!!!
+    // usertask = req.body.usertask;
+
+    // var sql = 'INSERT into runs (workflow, user, state, usertask) VALUES (?, ?, 2, ?)';
+
+    // db.run(sql, [
+
+    //     workflow,
+    //     userID, // CAMBIAR A SESSION!!!!
+    //     usertask
+
+    // ], function(err, rows) {
+    //     if (err) {
+    //         res.status(500).send(err)
+    //     } else {
+
+    //         sql = 'SELECT wft.*  FROM wftasks AS wft WHERE (wft.workflow = ?) ORDER BY "order"';
+
+    //         db.all(sql, workflow, async function(err, rows) {
+    //             if (err) {
+    //                 res.status(500).send(err);
+    //             } else {
+
+    //                 // Aquí, una vez tenemos todos los wftasks de un proceso nuevo en run, las metemos todas en usertasks, poniendo la/s primera/s como pendiente y el resto en programada
+
+    //                 sql = 'SELECT r.id FROM runs AS r WHERE ? = r.workflow'
+
+    //                 var tasks = rows;
+
+    //                 db.all(sql, workflow, async function(err, rows) {
+    //                     if (err) {
+    //                         res.status(500).send(err)
+    //                     } else {
+
+    //                         var runid = rows[0].id;
+
+    //                         // tasks.forEach(task => {
+    //                         //     console.log(task);
+    //                         //     var estado = 1;
+    //                         //     if (task.order == tasks[0].order) estado = 2;
+
+    //                         //     var sq2 = `INSERT INTO usertasks (run, user, wftask, state) VALUES (${runid}, ${userID}, ${task.id}, ${estado})`;
+    //                         //     console.log(sq2);
+
+    //                         //     db.run(sq2, function(err, rows) {
+    //                         //         if (err) {
+    //                         //             res.status(500).send(err);
+    //                         //         } else {
+    //                         //             console.log(`bien la task: ${task.data}`)
+    //                         //         }
+    //                         //     });
+
+    //                         // });
+
+    //                         sql = "";
+    //                         tasks.forEach(task => {
+
+    //                             var estado = 1;
+
+    //                             if (task.order == tasks[0].order) estado = 2;
+    //                             if (task == tasks[0])
+    //                                 sql = `INSERT INTO usertasks (run, user, wftask, state) VALUES (${runid}, ${userID}, ${task.id}, ${estado})`;
+    //                             else
+    //                                 sql += `,(${runid}, ${userID}, ${task.id}, ${estado})`; // CAMBIAR BODY A SESSION !!!
+
+    //                         });
+
+    //                         //console.log(sq2);
+
+    //                         db.run(sq2, function(err, rows) {
+
+    //                             if (err) {
+
+    //                                 res.status(500).send(err);
+
+    //                             } else {
+    //                                 res.send(`todas las usertask del proceso con id ${workflow} en marcha con id ${runid} han sido añadidas a tabla usertasks`)
+    //                             }
+    //                         });
+
+    //                     }
+    //                 });
+
+    //             }
+    //         });
+    //     }
+    // });
+
+}
+
+function newRun(req, res, task_workflow = '', task = '') {
+
+    var workflow = task_workflow || req.body.workflow;
+    var userID = req.session.userID; // CAMBIAR A SESSION!!!!
+    var usertask = task || req.body.usertask;
+    var fechaini = new Date().toLocaleString()
+
+
+    // crea en runs una nueva entrada del workflow en cuestion
+    var sql = 'INSERT into runs (workflow, user, state, usertask) VALUES (?, ?, 2, ?)';
 
     db.run(sql, [
 
-        req.body.workflow,
-        req.body.userID, // CAMBIAR A SESSION!!!!
-        req.body.usertask
+        workflow,
+        userID, // CAMBIAR A SESSION!!!!
+        usertask
 
     ], function(err, rows) {
         if (err) {
-            res.status(500).send(err)
+            res.status(500).send(`error al crear nuevo run: ${err}`)
         } else {
+            // selecciona todos los wftasks del workflow en cuestion
+            sql = 'SELECT wft.*  FROM wftasks AS wft WHERE (wft.workflow = ?) ORDER BY "order"';
 
-            var sql = 'SELECT wft.*  FROM wftasks AS wft WHERE (wft.workflow = ?) ORDER BY "order"';
-
-            db.all(sql, req.body.workflow, async function(err, rows) {
+            db.all(sql, workflow, async function(err, rows) {
                 if (err) {
-                    res.status(500).send(err);
+                    res.status(500).send(`error al seleccionar wftasks: ${err}`);
                 } else {
 
                     // Aquí, una vez tenemos todos los wftasks de un proceso nuevo en run, las metemos todas en usertasks, poniendo la/s primera/s como pendiente y el resto en programada
 
+                    // selecciona el run recien creado
                     sql = 'SELECT r.id FROM runs AS r WHERE ? = r.workflow'
 
                     var tasks = rows;
 
-                    db.all(sql, req.body.workflow, async function(err, rows) {
+                    db.all(sql, workflow, async function(err, rows) {
                         if (err) {
-                            res.status(500).send(err)
+                            res.status(500).send(`error al seleccionar el run: ${err}`)
                         } else {
 
                             var runid = rows[0].id;
@@ -70,7 +175,7 @@ const runPost = async(req = request, res = response) => {
                             //     var estado = 1;
                             //     if (task.order == tasks[0].order) estado = 2;
 
-                            //     var sq2 = `INSERT INTO usertasks (run, user, wftask, state) VALUES (${runid}, ${req.body.userID}, ${task.id}, ${estado})`;
+                            //     var sq2 = `INSERT INTO usertasks (run, user, wftask, state) VALUES (${runid}, ${userID}, ${task.id}, ${estado})`;
                             //     console.log(sq2);
 
                             //     db.run(sq2, function(err, rows) {
@@ -83,29 +188,32 @@ const runPost = async(req = request, res = response) => {
 
                             // });
 
-                            var sq2 = "";
+                            sql = "";
                             tasks.forEach(task => {
 
                                 var estado = 1;
-
-                                if (task.order == tasks[0].order) estado = 2;
+                                var fechainicio = '';
+                                if (task.order == tasks[0].order) {
+                                    estado = 2;
+                                    fechainicio = fechaini;
+                                }
                                 if (task == tasks[0])
-                                    sq2 = `INSERT INTO usertasks (run, user, wftask, state) VALUES (${runid}, ${req.session.userID}, ${task.id}, ${estado})`;
+                                    sql = `INSERT INTO usertasks (run, user, wftask, state, fechainicio) VALUES (${runid}, ${userID}, ${task.id}, ${estado}, "${fechainicio}")`;
                                 else
-                                    sq2 += `,(${runid}, ${req.body.userID}, ${task.id}, ${estado})`; // CAMBIAR BODY A SESSION !!!
+                                    sql += `,(${runid}, ${userID}, ${task.id}, ${estado}, "${fechainicio}")`;
 
                             });
 
-                            console.log(sq2);
+                            console.log(sql);
 
-                            db.run(sq2, function(err, rows) {
-                                
+                            db.run(sql, function(err, rows) {
+
                                 if (err) {
-                                    
-                                    res.status(500).send(err);
+
+                                    res.status(500).send(`error al crear usertasks: ${err}`);
 
                                 } else {
-                                    res.send(`todas las usertask del proceso con id ${req.body.workflow} en marcha con id ${runid} han sido añadidas a tabla usertasks`)
+                                    res.send(`todas las usertask del proceso con id ${workflow} en marcha con id ${runid} han sido añadidas a tabla usertasks`)
                                 }
                             });
 
@@ -117,9 +225,11 @@ const runPost = async(req = request, res = response) => {
         }
     });
 
+
 }
 
 module.exports = {
     runsGet,
-    runPost
+    runPost,
+    newRun
 }
