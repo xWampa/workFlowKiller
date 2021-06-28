@@ -10,7 +10,7 @@ const wftaskGet = async(req = request, res = response) => {
     db.run(sql, [
 
         req.body.workflow,
-        req.session.userID, // CAMBIAR A SESSION!!!!
+        req.session.userID, 
         req.body.usertask
 
     ], function(err, rows) {
@@ -26,7 +26,6 @@ const wftaskGet = async(req = request, res = response) => {
                 } else {
 
                     // Aquí, una vez tenemos todos los wftasks de un proceso nuevo en run, las metemos todas en usertasks, poniendo la/s primera/s como pendiente y el resto en programada
-
                     sql = 'SELECT r.id FROM runs AS r WHERE ? = r.workflow'
 
                     var tasks = rows;
@@ -38,25 +37,8 @@ const wftaskGet = async(req = request, res = response) => {
 
                             var runid = rows[0].id;
 
-                            // tasks.forEach(task => {
-                            //     console.log(task);
-                            //     var estado = 1;
-                            //     if (task.order == tasks[0].order) estado = 2;
-
-                            //     var sq2 = `INSERT INTO usertasks (run, user, wftask, state) VALUES (${runid}, ${req.body.userID}, ${task.id}, ${estado})`;
-                            //     console.log(sq2);
-
-                            //     db.run(sq2, function(err, rows) {
-                            //         if (err) {
-                            //             res.status(500).send(err);
-                            //         } else {
-                            //             console.log(`bien la task: ${task.data}`)
-                            //         }
-                            //     });
-
-                            // });
-
                             var sq2 = "";
+                            //Añadimos todas las usertasks correspondientes al proceso
                             tasks.forEach(task => {
 
                                 var estado = 1;
@@ -65,7 +47,7 @@ const wftaskGet = async(req = request, res = response) => {
                                 if (task == tasks[0])
                                     sq2 = `INSERT INTO usertasks (run, user, wftask, state) VALUES (${runid}, ${req.body.userID}, ${task.id}, ${estado})`;
                                 else
-                                    sq2 += `,(${runid}, ${req.session.userID}, ${task.id}, ${estado})`; // CAMBIAR BODY A SESSION !!!
+                                    sq2 += `,(${runid}, ${req.session.userID}, ${task.id}, ${estado})`; 
 
                             });
 
