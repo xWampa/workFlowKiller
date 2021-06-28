@@ -1,52 +1,69 @@
-    <!--NAVBAR-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#/!">WFK</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<!--NAVBAR-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#/!">WFK</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active navitem-l" aria-current="page" href="#!todo"><strong>Tareas pendientes</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active navitem-l" aria-current="page" href="#!users"><strong>Gestion de usuarios</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active navitem-l" aria-current="page" href="#!tasks"><strong>Gestion de tareas</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active navitem-l" aria-current="page" href="#!procs"><strong>Gestion de procesos</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active navitem-l" aria-current="page" href="#!runs"><strong>Lanzar un proceso</strong></a>
-                    </li>
-                    
-                </ul>
-            </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active navitem-l" aria-current="page" href="#!todo"><strong>Tareas pendientes</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active navitem-l" aria-current="page" href="#!users"><strong>Gestion de usuarios</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active navitem-l" aria-current="page" href="#!tasks"><strong>Gestion de tareas</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active navitem-l" aria-current="page" href="#!procs"><strong>Gestion de procesos</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active navitem-l" aria-current="page" href="#!runs"><strong>Lanzar un proceso</strong></a>
+                </li>
+
+            </ul>
         </div>
-    </nav>
-    <!--FIN NAVBAR-->
-        <div class="container">
-            <h1 class="mb-3 mt-3">Gestion de tareas</h1>
-            <span>Estado: 1-Programada / 3-Terminada</span>
-            <table class="table table-striped">
-                <thead>
-                    <tr class="table-dark">
-                        <th scope="col">ID</th>
-                        <th scope="col">Tarea</th>
-                        <th scope="col">Datos</th>
-                        <th scope="col">Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="t in tasks">
-                        <th scope="row">{{ t.id }}</th>
-                        <td>{{ t.name }}</td>
-                        <td>{{ t.data }}</td>
-                        <td>{{ t.state }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    </div>
+</nav>
+<!--FIN NAVBAR-->
+
+<div class="container">
+    <h1 class="mb-3 mt-3">Gestion de tareas</h1>
+    <span>Estado: 1-Programada /2-pendientge/ 3-Terminada/ 4-cancelada</span>
+    <table class="table table-striped">
+        <thead>
+            <tr class="table-dark">
+                <th scope="col">Order</th>
+                <th scope="col">Usertask ID</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Datos</th>
+                <th scope="col">Subproceso</th>
+                <th scope="col">Proceso</th>
+                <th scope="col">Proceso ID</th>
+                <th scope="col">Inicio</th>
+                <th scope="col">Fin</th>
+                <th scope="col">Horas</th>
+                <th scope="col">Notas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="t in tasks">
+                <th scope="row">{{ t.order }}</th>
+                <td>{{ t.usertask_id }}</td>
+                <td>{{ t.state }}</td>
+                <td>{{ t.name }}</td>
+                <td>{{ t.data }}</td>
+                <td>{{ t.subproceso }}</td>
+                <td>{{ t.proceso }}</td>
+                <td>{{ t.id_proceso }}</td>
+                <td>{{ t.fechainicio }}</td>
+                <td>{{ t.fechafin }}</td>
+                <td>{{ t.horas }}</td>
+                <td>{{ t.notes }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

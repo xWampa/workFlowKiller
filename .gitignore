@@ -1,2 +1,4 @@
 /node_modules/
 *.sqlite
+*.sql.old
+*.sql
