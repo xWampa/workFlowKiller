@@ -22,7 +22,7 @@ const procsGet = async(req = request, res = response) => {
     });
 }
 
-const procsPost = async(req = request, res = response) => {
+const procsPut = async(req = request, res = response) => {
 
     const workflow = req.body.workflow;
 
@@ -108,5 +108,5 @@ function cancelProceso(req, res, workflowID = '') {
 
 module.exports = {
     procsGet,
-    procsPost
+    procsPut
 }
